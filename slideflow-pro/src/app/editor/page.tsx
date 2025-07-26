@@ -20,7 +20,6 @@ export default function EditorPage() {
   const [selectedSlide, setSelectedSlide] = useState<Slide | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [textOverlays, setTextOverlays] = useState<string[]>([]);
-  const [isExporting, setIsExporting] = useState(false);
 
   const handleDrop = (acceptedFiles: File[]) => {
     const newSlides = acceptedFiles.map((file, index) => ({
@@ -54,7 +53,6 @@ export default function EditorPage() {
   };
 
   const handleExport = async (format: "mp4" | "webm" | "gif") => {
-    setIsExporting(true);
     try {
       const blob = await exportToVideo(
         slides.map((slide) => slide.src),
@@ -69,7 +67,7 @@ export default function EditorPage() {
     } catch (error) {
       console.error("Error exporting video:", error);
     } finally {
-      setIsExporting(false);
+      // setIsExporting(false); // Removed as isExporting is not used
     }
   };
 

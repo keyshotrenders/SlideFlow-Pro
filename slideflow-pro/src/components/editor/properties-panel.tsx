@@ -12,7 +12,6 @@ interface PropertiesPanelProps {
 
 export function PropertiesPanel({
   selectedSlide,
-  onUpdateSlide,
   transitionType,
   onTransitionChange,
 }: PropertiesPanelProps) {

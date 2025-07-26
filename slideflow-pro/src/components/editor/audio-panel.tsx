@@ -2,8 +2,15 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { ComponentType } from "react";
 
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+interface ReactPlayerComponentProps {
+  url: string;
+  playing: boolean;
+  controls: boolean;
+  width: string;
+  height: string;
+}
 
 interface AudioPanelProps {
   onAudioUpload: (file: File) => void;
@@ -18,7 +25,9 @@ export function AudioPanel({ onAudioUpload, audioUrl }: AudioPanelProps) {
     setIsClient(true);
   }, []);
 
-  const Player = ReactPlayer as any;
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as ComponentType<ReactPlayerComponentProps>;
+
+  const Player = ReactPlayer;
 
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
