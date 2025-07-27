@@ -8,9 +8,10 @@ import { Slide } from "@/types";
 interface SortableItemProps {
   slide: Slide;
   onClick: () => void;
+  onDelete: () => void;
 }
 
-export function SortableItem({ slide, onClick }: SortableItemProps) {
+export function SortableItem({ slide, onClick, onDelete }: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -39,6 +40,15 @@ export function SortableItem({ slide, onClick }: SortableItemProps) {
         fill
         style={{ objectFit: "cover" }}
       />
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete();
+        }}
+        className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+      >
+        X
+      </button>
     </div>
   );
 }

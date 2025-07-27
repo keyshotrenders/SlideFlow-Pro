@@ -66,6 +66,7 @@ import {
 import { pushLeftVariants, pushRightVariants } from "../transitions/push";
 
 export type TransitionType =
+  | "random"
   | "fade"
   | "fade-to-black"
   | "fade-to-white"
@@ -129,7 +130,11 @@ const fadeVariants: Variants = {
   exit: { opacity: 0 },
 };
 
-const transitions: Record<TransitionType, Variants | ((color: string) => Variants)> = {
+const transitions: Record<
+  TransitionType,
+  Variants | ((color: string) => Variants) | undefined
+> = {
+  random: undefined,
   fade: fadeVariants,
   "fade-to-black": fadeToBlackVariants,
   "fade-to-white": fadeToWhiteVariants,
@@ -203,7 +208,19 @@ export function SlideshowPlayer({
     return <div>No images to display.</div>;
   }
 
-  const transitionVariantOrFn = transitions[transitionType];
+  let transitionVariantOrFn;
+  if (transitionType === "random") {
+    const availableTransitions = Object.keys(transitions).filter(
+      (t) => t !== "random"
+    );
+    const randomTransition = availableTransitions[
+      Math.floor(Math.random() * availableTransitions.length)
+    ] as TransitionType;
+    transitionVariantOrFn = transitions[randomTransition];
+  } else {
+    transitionVariantOrFn = transitions[transitionType];
+  }
+
   const transitionVariants =
     typeof transitionVariantOrFn === "function"
       ? transitionVariantOrFn("blue")

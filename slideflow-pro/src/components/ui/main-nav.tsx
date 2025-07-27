@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export function MainNav() {
   return (
-    <nav className="flex items-center space-x-4 lg:space-x-6">
-      <Link href="/" className="mr-6 flex items-center space-x-2">
+    <nav className="flex items-center space-x-6 lg:space-x-8">
+      <Link href="/" className="flex items-center space-x-2">
         <span className="font-bold">SlideFlow Pro</span>
       </Link>
       <Link

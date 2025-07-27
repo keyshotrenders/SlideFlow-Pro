@@ -22,12 +22,14 @@ interface TimelineEditorProps {
   slides: Slide[];
   onReorder: (slides: Slide[]) => void;
   onSelectSlide: (slide: Slide) => void;
+  onDeleteSlide: (slideId: string) => void;
 }
 
 export function TimelineEditor({
   slides,
   onReorder,
   onSelectSlide,
+  onDeleteSlide,
 }: TimelineEditorProps) {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -68,6 +70,7 @@ export function TimelineEditor({
                 key={slide.id}
                 slide={slide}
                 onClick={() => onSelectSlide(slide)}
+                onDelete={() => onDeleteSlide(slide.id)}
               />
             ))}
           </div>

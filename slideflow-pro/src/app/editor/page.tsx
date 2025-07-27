@@ -43,6 +43,14 @@ export default function EditorPage() {
     setSlides(newSlides);
   };
 
+  const handleDeleteSlide = (slideId: string) => {
+    const newSlides = slides.filter((slide) => slide.id !== slideId);
+    setSlides(newSlides);
+    if (selectedSlide?.id === slideId) {
+      setSelectedSlide(newSlides.length > 0 ? newSlides[0] : null);
+    }
+  };
+
   const handleAudioUpload = (file: File) => {
     const url = URL.createObjectURL(file);
     setAudioUrl(url);
@@ -166,6 +174,7 @@ export default function EditorPage() {
             slides={slides}
             onReorder={handleReorder}
             onSelectSlide={setSelectedSlide}
+            onDeleteSlide={handleDeleteSlide}
           />
         </div>
       </div>
